@@ -32,4 +32,8 @@ This notebook explores methods incorporating information from the other serial n
 
 We consider cases where 100 parts are found, and use a variety of estimators to estimate N, including the estimator described above, estimators including information from other parts found, and machine learning models. 
 
+We measure accuracy as: 
+
+$$ ABS(N - \hat{N}) \over N $$
+
 ## Results

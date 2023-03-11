@@ -36,6 +36,6 @@ We measure accuracy as:
 
 $$ ABS(N - \hat{N}) \over N $$
 
-This is averaged over 100,000 trials.
+This is averaged over 100,000 trials, taking the median error.
 
 ## Results

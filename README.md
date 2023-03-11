@@ -36,6 +36,40 @@ We measure accuracy as:
 
 $$ ABS(N - \hat{N}) \over N $$
 
-This is averaged over 100,000 trials, taking the median error.
+The experiments test using each of the discovered part numbers, using a similar formula:
+
+$$ \hat{N} = Value Found * {{k+1} \over rank} -1 $$
+
+For example, if using the 80th of 100 parts found, the estimate is: (value of 80th parth * (101/80)) - 1.
+
+Experiments then take the mean or median of the estimates. A technique referred to as *capping* is also employed, where estimates that are known to be impossible, as they are less than the observed maximum, are excluded from the pool of estiamtes to be averaged. 
+
+The errors are then averaged over 100,000 trials, taking the median error.
+
 
 ## Results
+
+Examining the results for median error (smaller is better) for the techniques tried, simply using the maximum part found, in fact, works the best. Some other techiques work nearly as well, but it can be seen: the less parts considered, the better. 
+
+| Technique |	Median Error |
+| ---------- | ---------- | 
+| Max Part	 | 0.013611 |
+| Mean last 5 Parts	 | 0.014852 |
+| Mean last 5 Parts Capped	 | 0.014923 |
+| Median last 5 Parts	 | 0.015171 |
+| Median last 5 Parts Capped	 | 0.015214 |
+| Mean last 10 Parts	 | 0.016379 |
+| Median last 10 Parts	 | 0.016397 |
+| Mean last 10 Parts Capped	 | 0.016424 |
+| Median last 10 Parts Capped	 | 0.016448 |
+| Median all Parts	 | 0.047504 |
+| Median all Parts Capped	 | 0.047556 |
+| Mean all Parts Capped	 | 0.106079 |
+| Mean all Parts	 | 0.106244 |
+
+### Experiments with Random Forest
+
+Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000) in this case, the random forest learns to rely entirely on the maximum part found. 
+
+## Conclusions
+This is another example where adding features, even features with real signal to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. 

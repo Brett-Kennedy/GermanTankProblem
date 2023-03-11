@@ -49,6 +49,25 @@ The errors are then averaged over 100,000 trials, taking the median error.
 
 ## Results
 
+Examining first where only the maximum is used, the experimental data appears as: (with the true N in red and estimate in green):
+
+!["max"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_max.jpg)
+
+Examining next using other parts, we first look using the first 10 found:
+
+!["first 10"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_first_10.jpg)
+
+Then the middle 10:
+
+!["middle 10"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_mid_10.jpg)
+
+Then the last 10:
+!["last 10"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_last_10.jpg)
+
+Using all:
+!["all"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_all.jpg)
+
+
 Examining the results for median error (smaller is better) for the techniques tried, simply using the maximum part found, in fact, works the best. Some other techiques work nearly as well, but it can be seen: the less parts considered, the better. 
 
 | Technique |	Median Error |
@@ -66,6 +85,11 @@ Examining the results for median error (smaller is better) for the techniques tr
 | Median all Parts Capped	 | 0.047556 |
 | Mean all Parts Capped	 | 0.106079 |
 | Mean all Parts	 | 0.106244 |
+
+Plotted:
+
+!["barplot"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/res.jpg)
+
 
 ### Experiments with Random Forest
 

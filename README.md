@@ -1,7 +1,7 @@
 # GermanTankProblem
 
 ## Background
-This is a single, simple [notebook](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/Tank%20Parts.ipynb)  that provides some analysis and experiments related to the German Tank Problem. The problem is described in Bernoulli's Fallacy by Aubrey Clayton, (2021) Columbia Press as:
+This is a single, simple [notebook](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/Tank%20Parts.ipynb)  that provides some analysis and experiments related to a probability problem know as *the German Tank Problem*. The problem is described in Bernoulli's Fallacy by Aubrey Clayton, (2021) Columbia Press as:
 
 > "During World War II, in the days leading up to the invasion of Normandy, Allied forces were faced with a difficult problem in statistical inference. The German military had recently introduced a new model of tank, the Panzer V. ... The Allies needed to know how many of these tanks they could expect to encounter in northern France. ... What they had were serial numbers of various parts ... of Panzer V tanks they had either captured or destroyed, which would enable statistical analysis. Importantly, they assumed these numbers were generated in sequence, so the relative sizes of the numbers could give them some clue of how many tanks had been manufactured ... What they needed to know was the highest number that had been generated, which would reveal the total number of tanks that had been produced. They made further assumptions that the tank parts they discovered were equally likely to have come from anywhere in the sequence and that the parts that ended up in tanks in various places were effectively independent from one another. Relabelling the numbers from 1..., the problem became the following:
 
@@ -15,7 +15,7 @@ $$ \hat{N} = Max * {{k+1} \over k} -1 $$
 
 > This estimator happens to have the friendly property of being the minimum variance unbiased estimator (MVUE) for this parameter. 
 
-For other discussion, see Fifty Challenging Problems in Probability by Fredrick Mosteller (1965), Dover Press as the Locamotive Problem:
+For other discussion, see Fifty Challenging Problems in Probability by Fredrick Mosteller (1965), Dover Press, presented there as the Locamotive Problem:
 
 > (a) A railroad numbers its locamotives in order: 1, 2, ... N. One day you see a locamotive and it's number is 60. Guess how many locamotives the company has
 > (b) You have looked at 5 locamotives and the largest number observed is 60. Again guess how many locomatives the company has.
@@ -100,4 +100,4 @@ Plotted:
 Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000) in this case, the random forest learns to rely entirely on the maximum part found. 
 
 ## Conclusions
-This is another example where adding features, even features with real signal to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is, however, not possible to prove a negative result here, and further experiments with other techniques to incorporate multiple observations may work better than those presented here. For example, it would be possible to weight observations and to adjust less-plausible estimations using techniques other than those presented here. This is simply a presentation, and not proof, of the optimality of the estimator.
+This is an example of a common theme in machine learning where adding features, even features with real signal, to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is, however, not possible to prove a negative result here, and further experiments with other techniques to incorporate multiple observations may work better than those presented here. For example, it would be possible to weight observations and to adjust less-plausible estimations using techniques other than those presented here. This is simply a presentation, and not proof, of the optimality of the estimator, though the estimimator is known to be optimal.

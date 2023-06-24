@@ -97,7 +97,7 @@ Plotted:
 
 ### Experiments with Random Forest
 
-Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000 in this case), the random forest learns to rely entirely on the maximum part found. 
+Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000 in this case), the random forest learns to rely entirely on the maximum part found. See the notebook for more details. 
 
 ## Conclusions
 This is an example of a common theme in machine learning where adding features, even features with real signal, to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is, however, not possible to prove a negative result here, and further experiments with other techniques to incorporate multiple observations may work better than those presented here. For example, it would be possible to weight observations and to adjust less-plausible estimations using techniques other than those presented here. This is simply a presentation, and not proof, of the optimality of the estimator, though the estimimator is known to be optimal.

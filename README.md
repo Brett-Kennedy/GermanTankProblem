@@ -46,10 +46,11 @@ Experiments then take the mean or median of the estimates. A technique referred 
 
 The errors are then averaged over 100,000 trials, taking the median error.
 
+Additionally, we test a method that calculates the maximum part found plus the average gap between the parts found. If 100 parts are found, we have 99 gaps between them, and the average size of these gaps may be assumes to be close to the gap between the maximum found and N. I believe this more faithfully applies the principle of symetry. Further discussion of this method can be found at: https://bytepawn.com/the-german-tank-problem-in-world-war-ii.html. It turns out, this method worked the best of the methods examined here. 
 
-## Results
+## Results Not Considering the Average Gap
 
-Examining first where only the maximum is used, the experimental data appears as: (with the true N in red and estimate in green):
+In this section, we simply consider estimates based on each part number found. Examining first where only the maximum is used, the experimental data appears as: (with the true N in red and estimate in green):
 
 !["max"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_max.jpg)
 
@@ -67,8 +68,11 @@ Then the last 10:
 Using all:
 !["all"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_all.jpg)
 
+## Results Considering the Average Gap
 
-It can be seen that the estimates using the maximum are quite close. And that the estimates from the first 10 are quite poor; those from the middle 10 better, and those from the last 10 better still. And so, as expected, the later in the sequence the parts used are taken, the better the estimate. But, this leaves the question if using the earlier observations still has some value, if combined with the maximum observation. 
+This method worked the best, which I believe makes intuitive sense. It still relies most heavily on the last part number found, but does take some advantage of the other part numbers found. 
+
+It can be seen that the estimates using the maximum and using the maximum plus the average gap are both quite close. And that the estimates from the first 10 are quite poor; those from the middle 10 better, and those from the last 10 better still. And so, as expected, the later in the sequence the parts used are taken, the better the estimate. But, this leaves the question if using the earlier observations still has some value, if combined with the maximum observation. 
 
 We next experiment with taking the mean and median of some or all of the observations. 
 
@@ -76,6 +80,7 @@ Examining the results for median error (smaller is better) for the techniques tr
 
 | Technique |	Median Error |
 | ---------- | ---------- | 
+| Max + Avg Gaps | 0.006285 |
 | Max Part	 | 0.013611 |
 | Mean last 5 Parts	 | 0.014852 |
 | Mean last 5 Parts Capped	 | 0.014923 |
@@ -99,5 +104,7 @@ Plotted:
 
 Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000 in this case), the random forest learns to rely entirely on the maximum part found. See the notebook for more details. 
 
+A second test was done including the average gap feature. Interestingly, this was used when training on a small number of training rows, but was dropped when many training rows were used, though we can conclude the feature is quite useful. 
+
 ## Conclusions
-This is an example of a common theme in machine learning where adding features, even features with real signal, to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is, however, not possible to prove a negative result here, and further experiments with other techniques to incorporate multiple observations may work better than those presented here. For example, it would be possible to weight observations and to adjust less-plausible estimations using techniques other than those presented here. This is simply a presentation, and not proof, of the optimality of the estimator, though the estimimator is known to be optimal.
+This is an example of a common theme in machine learning where adding features, even features with real signal, to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is also an example where feature engineering (in this case, the average gap between parts found) can be useful, but will not necessarily be used a any given machine learning model as is. 

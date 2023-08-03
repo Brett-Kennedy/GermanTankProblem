@@ -48,11 +48,11 @@ Experiments then take the mean or median of the estimates. A technique referred 
 
 The errors are then averaged over 100,000 trials, taking the median error.
 
-Additionally, we test a method that calculates the maximum part found plus the average gap between the parts found. If 100 parts are found, we have 99 gaps between them, and the average size of these gaps may be assumes to be close to the gap between the maximum found and N. I believe this more faithfully applies the principle of symetry. Further discussion of this method can be found at: https://bytepawn.com/the-german-tank-problem-in-world-war-ii.html. It turns out, this method worked the best of the methods examined here. 
+Additionally, we test a method that calculates the maximum part found plus the average gap between the parts found. If 100 parts are found, we have 99 gaps between them, and the average size of these gaps may be assumed to be close to the gap between the maximum found and N. 
 
 ## Results Not Considering the Average Gap
 
-In this section, we simply consider estimates based on each part number found. Examining first where only the maximum is used, the experimental data appears as: (with the true N in red and estimate in green):
+In this section, we simply consider estimates based on one or multiple part numbers found. Examining first where only the maximum is used, the experimental data appears as: (with the true N in red and estimate in green):
 
 !["max"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_max.jpg)
 
@@ -70,43 +70,17 @@ Then the last 10:
 Using all:
 !["all"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/using_all.jpg)
 
+## Results Summary
+
+It can be seen that estimates based on the first, or even middle parts found have very high variance, and even taking their mean or median results in weak estimates. The later the parts numbers used, the stronger the estimate, with using only the single last part number found performing the best. 
+
 ## Results Considering the Average Gap
 
-This method worked the best, which I believe makes intuitive sense. It still relies most heavily on the last part number found, but does take some advantage of the other part numbers found. 
-
-It can be seen that the estimates using the maximum and using the maximum plus the average gap are both quite close. And that the estimates from the first 10 are quite poor; those from the middle 10 better, and those from the last 10 better still. And so, as expected, the later in the sequence the parts used are taken, the better the estimate. But, this leaves the question if using the earlier observations still has some value, if combined with the maximum observation. 
-
-We next experiment with taking the mean and median of some or all of the observations. 
-
-Examining the results for median error (smaller is better) for the techniques tried, simply using the maximum part found, in fact, works the best. Some other techiques work nearly as well, but it can be seen: the less parts considered, the better, with the optimum being a single part, the maximum. 
-
-| Technique |	Median Error |
-| ---------- | ---------- | 
-| Max + Avg Gaps | 0.006285 |
-| Max Part	 | 0.013611 |
-| Mean last 5 Parts	 | 0.014852 |
-| Mean last 5 Parts Capped	 | 0.014923 |
-| Median last 5 Parts	 | 0.015171 |
-| Median last 5 Parts Capped	 | 0.015214 |
-| Mean last 10 Parts	 | 0.016379 |
-| Median last 10 Parts	 | 0.016397 |
-| Mean last 10 Parts Capped	 | 0.016424 |
-| Median last 10 Parts Capped	 | 0.016448 |
-| Median all Parts	 | 0.047504 |
-| Median all Parts Capped	 | 0.047556 |
-| Mean all Parts Capped	 | 0.106079 |
-| Mean all Parts	 | 0.106244 |
-
-Plotted:
-
-!["barplot"](https://github.com/Brett-Kennedy/GermanTankProblem/blob/main/images/res.jpg)
-
+This experiment was not included in the notebook, but as expected, estimating based on the last part number found plus the average gap peformed identically to using the last part. That is expected, as the formulas are actually identical. The average gap is simply the largest part number divided by the number of parts. However, using the average gap may be a more intuitive way to think about the problem: if there are, say, 100 parts found, with the largest having value 1500, and the average gap between them is 151, then it follows that the largest value is the largest found plus the average gap, in this case 1500 + 151 = 1651. 
 
 ### Experiments with Random Forest
 
-Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 6,000 to 10,000 in this case), the random forest learns to rely entirely on the maximum part found. See the notebook for more details. 
-
-A second test was done including the average gap feature. Interestingly, this was used when training on a small number of training rows, but was dropped when many training rows were used, though we can conclude the feature is quite useful. 
+Experiments with random forests were done using all 100 parts found as features. As the training size was increased, the random forest learned better to use less features, and to rely more heavily on the later features. Given a sufficient number of training records (approximately 4,000 to 10,000 in this case), the random forest learns to rely entirely on the maximum part found. See the notebook for more details. 
 
 ## Conclusions
-This is an example of a common theme in machine learning where adding features, even features with real signal, to a model decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other. It is also an example where feature engineering (in this case, the average gap between parts found) can be useful, but will not necessarily be used a any given machine learning model as is. 
+This is an example of a common theme in machine learning where adding features, even features with real signal, to a model actually decreases, as opposed to increasing, the overall accuracy. In this case the features are clearly non-independent of each other, hense the lack of improvement from incorporating them. 

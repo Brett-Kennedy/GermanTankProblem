@@ -40,7 +40,9 @@ The experiments test using each of the discovered part numbers, using a similar 
 
 $$ \hat{N} = Value Found * {{k+1} \over rank} -1 $$
 
-For example, if using the 80th of 100 parts found, the estimate is: (value of 80th parth * (101/80)) - 1.
+For example, if using the 80th of 100 parts found, the estimate is: (value of 80th part * (101/80)) - 1.
+
+Note: this is identical to the formula above when using the last part found, where rank = k.
 
 Experiments then take the mean or median of the estimates. A technique referred to as *capping* is also employed, where estimates that are known to be impossible, as they are less than the observed maximum, are excluded from the pool of estimates to be averaged. 
 
